@@ -8,7 +8,8 @@ import {Progressbar} from "./components/Progressbar";
 
 function App() {
     const min: number = 0
-    const maxValue = useRef<number>(5)
+    const max:number= 10
+    const maxValue = useRef<number>(max)
     const [value, setValue] = useState<number>(min);
 
 
@@ -19,14 +20,14 @@ function App() {
 
     const addOne = useCallback<() => void>(() => {
         if (value < maxValue.current) {
-            setValue(prevState => prevState += 1)
+            setValue(prevState => prevState + 1)
         }
 
-    }, [])
+    }, [value])
 
     const resetValue = useCallback<() => void>(() => {
         setValue(min)
-        maxValue.current = randomValue(1, 10)
+        maxValue.current = randomValue(1, max)
     }, [])
 
 
