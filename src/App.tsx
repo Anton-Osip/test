@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import './App.css';
 import styled from "styled-components";
 import {Scoreboard} from "./components/Scoreboard";
@@ -8,39 +8,39 @@ import {Progressbar} from "./components/Progressbar";
 
 function App() {
     const min: number = 0
-    const max: number = 10
+    const maxValue = useRef<number>(5)
     const [value, setValue] = useState<number>(min);
-    const [maxValue, setMaxValue] = useState<number>(max);
+
 
     const randomValue = (min: number, max: number) => {
         let rand = min + Math.random() * (max + 1 - min);
         return Math.floor(rand);
     }
 
-    const addOne = () => {
-        if (value < maxValue) {
+    const addOne = useCallback<() => void>(() => {
+        if (value < maxValue.current) {
             setValue(prevState => prevState += 1)
         }
 
-    }
+    }, [])
 
-    const resetValue = () => {
+    const resetValue = useCallback<() => void>(() => {
         setValue(min)
-        setMaxValue(randomValue(1, max))
-    }
+        maxValue.current = randomValue(1, 10)
+    }, [])
 
 
     return (
         <div className = "App">
             <StyledCounter>
                 <Scoreboard value = {value}
-                            maxValue = {maxValue}/>
-                <Progressbar fill = {(100 * value) / maxValue}/>
+                            maxValue = {maxValue.current}/>
+                <Progressbar fill = {(100 * value) / maxValue.current}/>
                 <Controllers
                     addOne = {addOne}
                     resetValue = {resetValue}
                     value = {value}
-                    maxValue = {maxValue}/>
+                    maxValue = {maxValue.current}/>
             </StyledCounter>
         </div>
     );
