@@ -1,26 +1,14 @@
 
 .App {
-  padding: 30px;
-  display: flex;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2f2f2f;
+    height: calc(100lvh - 60px);
 }
 
-.App > div {
-  margin-right: 50px;
-}
 
-.error {
-  border: red 1px solid;
-}
 
-.error-message {
-  color: red;
-}
 
-.active-filter {
-  background-color: aquamarine;
-}
-
-.is-done {
-  opacity: 0.5;
-}
 
